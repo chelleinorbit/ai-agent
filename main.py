@@ -24,17 +24,17 @@ def main():
     parser.add_argument("user_prompt", type=str, help="type in a prompt")
     args: str = parser.parse_args()
 
+    messages: list = [
+        {"role": "user", "content": args.user_prompt},
+    ]
+
     # Get response from model
     print("Hello from ai-agent!")
     response = client.chat.completions.create(
         model="openrouter/free",
-        messages=[
-            {
-                "role": "user",
-                "content": args.user_prompt
-            }
-        ]
+        messages=messages,
     )
+
     # Keep track of token usage!!
     if response.usage is None:
         raise RuntimeError("could not get response.usage, try again")
