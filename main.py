@@ -38,7 +38,7 @@ def main():
 
     # Optional verbose output
     if args.verbose:
-        print(f"User Prompt: {args.user_prompt}") # User input
+        print(f"User prompt: {args.user_prompt}") # User input
         if response.usage is None:
             raise RuntimeError("could not get response.usage, try again")   # vv Keep track of token usage!!vv
         prompt_tokens = response.usage.prompt_tokens
