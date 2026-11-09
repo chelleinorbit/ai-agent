@@ -1,4 +1,5 @@
 import os
+import argparse
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -14,6 +15,15 @@ def main():
         base_url="https://openrouter.ai/api/v1",
         api_key=api_key
     )
+
+    # Get user prompt as argument
+    parser = argparse.ArgumentParser(
+        prog='bootdev agent',
+        description='bootdev ai chatbot tool'
+    )
+    parser.add_argument("user_prompt", type=str, help="type in a prompt")
+    args: str = parser.parse_args()
+
     # Get response from model
     print("Hello from ai-agent!")
     response = client.chat.completions.create(
@@ -21,7 +31,7 @@ def main():
         messages=[
             {
                 "role": "user",
-                "content": "Why is Boot.dev such a great place to learn backend development? Use one paragraph maximum."
+                "content": args.user_prompt
             }
         ]
     )
