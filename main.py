@@ -22,6 +22,7 @@ def main():
         description='bootdev ai chatbot tool'
     )
     parser.add_argument("user_prompt", type=str, help="type in a prompt")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     args: str = parser.parse_args()
 
     messages: list = [
@@ -35,13 +36,15 @@ def main():
         messages=messages,
     )
 
-    # Keep track of token usage!!
-    if response.usage is None:
-        raise RuntimeError("could not get response.usage, try again")
-    prompt_tokens = response.usage.prompt_tokens
-    completion_tokens = response.usage.completion_tokens
-    print(f"Prompt tokens: {prompt_tokens}")
-    print(f"Response tokens: {completion_tokens}")
+    # Optional verbose output
+    if args.verbose:
+        print(f"User Prompt: {args.user_prompt}") # User input
+        if response.usage is None:
+            raise RuntimeError("could not get response.usage, try again")   # vv Keep track of token usage!!vv
+        prompt_tokens = response.usage.prompt_tokens
+        completion_tokens = response.usage.completion_tokens
+        print(f"Prompt tokens: {prompt_tokens}")
+        print(f"Response tokens: {completion_tokens}")
 
     print(response.choices[0].message.content)
 
