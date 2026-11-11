@@ -15,3 +15,7 @@ def get_files_info(working_directory: str, directory: str = ".") -> str:
     if not os.path.isdir(target_dir):
         return f"Error: \"{directory}\" is not a directory"
     return f"Success: \"{directory}\" is within the working directory"
+
+# TO DO:
+# catch errors in try/except blocks for convenience and practice.
+# if any new errors are raised by standard library functions, add a catch with a string describing the error
