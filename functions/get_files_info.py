@@ -1,4 +1,4 @@
-import os.path
+import os
 
 # allows agent to list contents of a directory and see each files metadata
 def get_files_info(working_directory: str, directory: str = ".") -> str:
@@ -14,7 +14,13 @@ def get_files_info(working_directory: str, directory: str = ".") -> str:
     # or overwriting important data. This is a very important step to bake into every function the LLM can call.
     if not os.path.isdir(target_dir):
         return f"Error: \"{directory}\" is not a directory"
-    return f"Success: \"{directory}\" is within the working directory"
+    #return f"Success: \"{directory}\" is within the working directory"
+    data_str = ""
+    list_dir: list[str] = os.listdir(target_dir)
+    for item in list_dir:
+        data_str += f"- {item}: file_size={os.path.getsize(os.path.join(target_dir, item))}, is_dir={os.path.isdir(os.path.join(target_dir, item))}"
+        data_str += "\n"
+    return data_str
 
 # TO DO:
 # catch errors in try/except blocks for convenience and practice.
